@@ -40,7 +40,7 @@ function App() {
           Review next step of this tutorial.
         </a>
       </div>
-      <button onClick={signOut}>Sign out</button>
+      <button onClick={signOut}>Sign out hello world from email branch</button>
     </main>
   );
 }
