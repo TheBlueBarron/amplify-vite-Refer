@@ -34,6 +34,24 @@ function App() {
   };
 
   return (
+    <main>
+      <h1>{user?.signInDetails?.loginId}'s todos</h1>
+            <button onClick={createTodo}>+ new</button>
+      <ul>
+        {todos.map((todo) => (
+          <li onClick={() => deleteTodo(todo.id)}
+          key={todo.id}>{todo.content}</li>
+        ))}
+      </ul>
+      <div>
+        🥳 App successfully hosted. Try creating a new todo.
+        <br />
+        <a href="https://docs.amplify.aws/react/start/quickstart/#make-frontend-updates">
+          Review next step of this tutorial.
+        </a>
+      </div>
+      <button onClick={signOut}>Sign out hello world from email branch</button>
+    </main>
     <div className="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center px-6 text-center">
       <h1 className="text-4xl font-bold mb-4">Refer App</h1>
       <p className="mb-6 text-gray-300">We’re launching soon. Join the waitlist below!</p>
