@@ -1,17 +1,17 @@
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import { useAuthenticator } from '@aws-amplify/ui-react';
-
+/*
 import Leads from './pages/Leads'; // Import the Leads page
 import './App.css';
 import LeadComp from "./components/LeadComp";
 import Services from "./pages/Services";
 //import Friends from "./pages/Friends";
 import MyAccount from "./pages/MyAccount";
-
+*/
 function App() {
   const { user, signOut } = useAuthenticator();
 
-  return (
+  return (/*
     <Router>
       <nav>
         <Link to="/">Home </Link>
@@ -35,7 +35,7 @@ function App() {
         <Route path="/account" element={<MyAccount />} />
       </Routes>
     </Router>
-  );
+  */);
 }
 
 export default App;
