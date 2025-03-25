@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useAuthenticator } from '@aws-amplify/ui-react';
 /*
 import Leads from './pages/Leads'; // Import the Leads page
