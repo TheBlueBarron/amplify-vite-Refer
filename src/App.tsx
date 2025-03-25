@@ -11,15 +11,8 @@ import MyAccount from "./pages/MyAccount";
 function App() {
   const { user, signOut } = useAuthenticator();
 
-  return (/*
+  return (
     <Router>
-      <nav>
-        <Link to="/">Home </Link>
-        <Link to="/leads"> Leads </Link>
-        <Link to="/services"> Services </Link>
-        <Link to="/friends"> Friends </Link>
-        <Link to="/account"> Account </Link>
-      </nav>
       <Routes>
         <Route path="/" element={
           <main>
@@ -30,9 +23,6 @@ function App() {
             <button onClick={signOut}>Sign out</button>
           </main>
         } />
-        <Route path="/leads" element={<Leads />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/account" element={<MyAccount />} />
       </Routes>
     </Router>
   */);
