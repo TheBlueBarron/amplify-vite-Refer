@@ -9,24 +9,24 @@ const schema = a.schema({
     .model({
       userId: a.id().required(), // Unique identifier for the user
       information: a.customType({
-        name: a.string().required(), // User's name
-        age: a.integer().required(), // User's age
-        email: a.email().required(), // User's email address
-        phone: a.phone().required(), // User's phone number
+        name: a.string(), // User's name
+        age: a.integer(), // User's age
+        email: a.email(), // User's email address
+        phone: a.phone(), // User's phone number
       }), // User's information
-      //friends: a.hasMany('User', 'Friendship'), // Users this user has added as friends
+      friends: a.hasMany('Friend', 'friendshipId'), // Users this user has added as friends
       services: a.hasMany('Service', 'posterId'), // Services created by this user
     })
     .authorization((allow) => [allow.owner()]),
 
-  /* Friend model
+  //Friend model
   Friend: a
     .model({
       friendshipId: a.id(), // Unique identifier for the friendship
-      userId: a.id(), // Relationship to the User model (initiator)
+      friend: a.belongsTo('User', 'friendshipId'), // Relationship to the User model (friend)
       friendId: a.id(), // Relationship to the User model (friend)
     })
-    .authorization((allow) => [allow.owner()]),*/
+    .authorization((allow) => [allow.owner()]),
 
   // Service model
   Service: a
@@ -49,10 +49,10 @@ const schema = a.schema({
       service: a.belongsTo('Service', 'serviceId'), // Unique identifier for the lead
       referrerId: a.id(), // Unique identifier for the referrer
       information: a.customType({
-        name: a.string().required(), // Lead's name
-        age: a.integer().required(), // Lead's age
-        email: a.email().required(), // Lead's email address
-        phone: a.phone().required(), // Lead's phone number
+        name: a.string(), // Lead's name
+        age: a.integer(), // Lead's age
+        email: a.email(), // Lead's email address
+        phone: a.phone(), // Lead's phone number
       }), // Lead's information
       leadMessage: a.string(), // Message from the lead
 
