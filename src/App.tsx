@@ -1,48 +1,45 @@
-import { useEffect, useState } from "react";
-import type { Schema } from "../amplify/data/resource";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import { useAuthenticator } from '@aws-amplify/ui-react';
-import { generateClient } from "aws-amplify/data";
 
-const client = generateClient<Schema>();
+import RespondToReferral from './components/RespondToReferral';
+import Leads from './pages/Leads'; // Import the Leads page
+import './App.css';
+import LeadComp from "./components/LeadComp";
+import Services from "./pages/Services";
+//import Friends from "./pages/Friends";
+import MyAccount from "./pages/MyAccount";
 
 function App() {
   const { user, signOut } = useAuthenticator();
-  const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
-
-  useEffect(() => {
-    client.models.Todo.observeQuery().subscribe({
-      next: (data) => setTodos([...data.items]),
-    });
-  }, []);
-
-  function createTodo() {
-    client.models.Todo.create({ content: window.prompt("Todo content") });
-  }
-    
-  function deleteTodo(id: string) {
-    client.models.Todo.delete({ id })
-  }
 
   return (
-    <main>
-      <h1>{user?.signInDetails?.loginId}'s todos</h1>
-            <button onClick={createTodo}>+ new</button>
-      <ul>
-        {todos.map((todo) => (
-          <li onClick={() => deleteTodo(todo.id)}
-          key={todo.id}>{todo.content}</li>
-        ))}
-      </ul>
-      <div>
-        🥳 App successfully hosted. Try creating a new todo.
-        <br />
-        <a href="https://docs.amplify.aws/react/start/quickstart/#make-frontend-updates">
-          Review next step of this tutorial.
-        </a>
-      </div>
-      <button onClick={signOut}>Sign out</button>
-    </main>
+    <Router>
+      <nav>
+        <Link to="/">Home </Link>
+        <Link to="/leads"> Leads </Link>
+        <Link to="/services"> Services </Link>
+        <Link to="/friends"> Friends </Link>
+        <Link to="/account"> Account </Link>
+      </nav>
+      <Routes>
+        <Route path="/" element={
+          <main>
+            <h1>{user?.signInDetails?.loginId}</h1>
+            <Link to ="/leads"><button>Leads</button></Link>
+            
+            <LeadComp />
+            <RespondToReferral referralId="exampleReferralId" />
+            <button onClick={signOut}>Sign out</button>
+          </main>
+        } />
+        <Route path="/leads" element={<Leads />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/account" element={<MyAccount />} />
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
+//<Route path="/friends" element={<Friends />} />
+
