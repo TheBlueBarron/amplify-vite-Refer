@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import { useAuthenticator } from '@aws-amplify/ui-react';
 
-import RespondToReferral from './components/RespondToReferral';
 import Leads from './pages/Leads'; // Import the Leads page
 import './App.css';
 import LeadComp from "./components/LeadComp";
@@ -28,7 +27,6 @@ function App() {
             <Link to ="/leads"><button>Leads</button></Link>
             
             <LeadComp />
-            <RespondToReferral referralId="exampleReferralId" />
             <button onClick={signOut}>Sign out</button>
           </main>
         } />

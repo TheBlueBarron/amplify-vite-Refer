@@ -1,4 +1,4 @@
-import { useState } from "react";
+/*import { useState } from "react";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "../../amplify/data/resource";
 import { useAuthenticator } from '@aws-amplify/ui-react'; // Import useAuthenticator
@@ -28,4 +28,4 @@ function RespondToReferral({ referralId }: { referralId: string }) {
   );
 }
 
-export default RespondToReferral;
+export default RespondToReferral;*/
