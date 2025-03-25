@@ -17,9 +17,7 @@ function App() {
         <Route path="/" element={
           <main>
             <h1>{user?.signInDetails?.loginId}</h1>
-            <Link to ="/leads"><button>Leads</button></Link>
-            
-            <LeadComp />
+        =
             <button onClick={signOut}>Sign out</button>
           </main>
         } />
