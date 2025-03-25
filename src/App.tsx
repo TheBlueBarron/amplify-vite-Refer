@@ -1,86 +1,45 @@
-import { useState, FormEvent } from 'react';
-import { generateClient } from 'aws-amplify/api';
-import { createEmailSignup } from './graphql/mutations';
-import './App.css'; // optional if you use Tailwind via CDN or PostCSS
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { useAuthenticator } from '@aws-amplify/ui-react';
 
-const client = generateClient();
+import RespondToReferral from './components/RespondToReferral';
+import Leads from './pages/Leads'; // Import the Leads page
+import './App.css';
+import LeadComp from "./components/LeadComp";
+import Services from "./pages/Services";
+//import Friends from "./pages/Friends";
+import MyAccount from "./pages/MyAccount";
 
 function App() {
-  const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      await client.graphql({
-        query: createEmailSignup,
-        variables: {
-          input: {
-            email,
-            createdAt: new Date().toISOString(),
-          },
-        },
-      });
-      setSubmitted(true);
-    } catch (error) {
-      console.error('Failed to submit email:', error);
-      alert('There was an error. Please try again later.');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { user, signOut } = useAuthenticator();
 
   return (
-    <main>
-      <h1>{user?.signInDetails?.loginId}'s todos</h1>
-            <button onClick={createTodo}>+ new</button>
-      <ul>
-        {todos.map((todo) => (
-          <li onClick={() => deleteTodo(todo.id)}
-          key={todo.id}>{todo.content}</li>
-        ))}
-      </ul>
-      <div>
-        🥳 App successfully hosted. Try creating a new todo.
-        <br />
-        <a href="https://docs.amplify.aws/react/start/quickstart/#make-frontend-updates">
-          Review next step of this tutorial.
-        </a>
-      </div>
-      <button onClick={signOut}>Sign out hello world from email branch</button>
-    </main>
-    <div className="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center px-6 text-center">
-      <h1 className="text-4xl font-bold mb-4">Refer App</h1>
-      <p className="mb-6 text-gray-300">We’re launching soon. Join the waitlist below!</p>
-
-      {submitted ? (
-        <p className="text-green-400 text-lg">Thanks! You’re on the list. 🎉</p>
-      ) : (
-        <form onSubmit={handleSubmit} className="w-full max-w-md flex flex-col gap-4">
-          <input
-            type="email"
-            required
-            placeholder="Your email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="p-3 rounded text-black"
-          />
-          <button
-            type="submit"
-            disabled={loading}
-            className={`p-3 rounded text-white font-semibold ${
-              loading ? 'bg-gray-600' : 'bg-indigo-600 hover:bg-indigo-700'
-            }`}
-          >
-            {loading ? 'Submitting...' : 'Notify Me'}
-          </button>
-        </form>
-      )}
-    </div>
+    <Router>
+      <nav>
+        <Link to="/">Home </Link>
+        <Link to="/leads"> Leads </Link>
+        <Link to="/services"> Services </Link>
+        <Link to="/friends"> Friends </Link>
+        <Link to="/account"> Account </Link>
+      </nav>
+      <Routes>
+        <Route path="/" element={
+          <main>
+            <h1>{user?.signInDetails?.loginId}</h1>
+            <Link to ="/leads"><button>Leads</button></Link>
+            
+            <LeadComp />
+            <RespondToReferral referralId="exampleReferralId" />
+            <button onClick={signOut}>Sign out</button>
+          </main>
+        } />
+        <Route path="/leads" element={<Leads />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/account" element={<MyAccount />} />
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
+//<Route path="/friends" element={<Friends />} />
+
