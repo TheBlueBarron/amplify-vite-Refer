@@ -17,7 +17,7 @@ function App() {
         <Route path="/" element={
           <main>
             <h1>{user?.signInDetails?.loginId}</h1>
-        =
+        
             <button onClick={signOut}>Sign out</button>
           </main>
         } />
